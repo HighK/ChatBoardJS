@@ -1,6 +1,5 @@
 var myName;
 var socket = io.connect(window.location.origin);
-var chat = new chatterbox(socket);
 var board = new WhiteBoard(d3, socket, 'whiteboard');
 
 function getUrlVars() {
@@ -35,7 +34,6 @@ socket.on('joinerror', function(data) {
 });
 
 socket.on('welcome', function(data) {
-	chat.setUserInfo(data);
 	Cookies.set(id + '-sessionId', data.id, {
 		path: location.pathname
 	});
@@ -55,7 +53,6 @@ $('#closeName').click(function() {
 socket.on('boardInfo', function(data) {
 	$('#boardName').html(data.name);
 	document.title = "Welcome to " + data.name;
-	chat.setBoardName(data.name);
 	var oldSessionId = Cookies.get(id + '-sessionId');
 	if (oldSessionId) {
 		socket.emit('rejoin', {
@@ -221,17 +218,6 @@ $("#cancelImageBtn").click(function() {
 	$("#imgUploadModal").modal("hide")
 });
 
-$("#emoticons").click(function(event) {
-	var offset = $("#emoticons").offset();
-	$("#emoticons_for_comments").css({top: offset.top - 300, left: offset.left, position:'absolute'}).show();
-	event.stopPropagation();
-});
-
-$("#emoticons_for_comments div span").click(function() {
-	$("#chatinput").val($("#chatinput").val() + $(this).attr("data-emoticon"));
-	$("#emoticons_for_comments").hide();
-});
-
 
 $("#selectTool").click();
 
@@ -315,9 +301,7 @@ $("#uploadImageBtn").click(function() {
 
 function resize() {
 	var win = $(window);
-	var chat = $("#chatspace");
-	chat.height(win.height() - 80 - 80 - $("nav").height());
-	board.setSize(win.width() - 400, win.height() - 50 - 80 - $("nav").height());
+	board.setSize(win.width() - 2, win.height() - 50);
 }
 
 function selectLineWeight(weight) {
@@ -338,9 +322,6 @@ $(window).load(function() {
 	resize();
 });
 
-$(window).bind('beforeunload', function(){
-  return 'You are about to leave ' + chat.getBoardName();
-});
 
 var hiddenInput = $('#hiddentext');
 var fragmentPattern = /^<html><body><!--StartFragment-->.*<!--EndFragment--><\/body><\/html>$/i;

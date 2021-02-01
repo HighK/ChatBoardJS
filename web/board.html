@@ -42,64 +42,61 @@
 	<textarea id="hiddentext" style="display:none">
 </textarea>
 
-	<table id="content" style="display: none; margin-top: -10px">
-		<tr>
-			<td class="board-container">
-				<div id="whiteboard" tabindex="1" style="overflow: scroll"></div>
+	<div id="content" style="display: none; margin-top: -10px">
 
-				<div style="margin-top: 10px;">
-					<div class="btn-group">
-						<button class="btn" id="selectTool" type="button"><span class="fa fa-mouse-pointer"></span></button>
-                        <!--<button id="deleteAction" class="btn" type="button">
-						<span class="fa fa-trash-o"></span>
-					</button>-->
-					</div>
+		<div id="whiteboard" tabindex="1" style="overflow: scroll"></div>
 
-					<div class="btn-group">
-						<button class="btn" id="textTool" type="button"><span class="fa fa-font"></span></button>
-                        <button class="btn" id="penTool" type="button"><span class="fa fa-pencil"></span></button>
-                        <button class="btn" id="lineTool" type="button"><span class="fa fa-pencil"></span></button>
-                        <button class="btn" id="ellipseTool" type="button"><span class="fa fa-circle-thin"></span></button>
-                        <button class="btn" id="rectTool" type="button"><span class="fa fa-square-o"></span></button>
-                        <button class="btn" id="eraserTool" type="button"><span class="fa fa-eraser"></span></button>
-					</div>
+		<div style="margin-top: 10px;">
+			<div class="btn-group">
+				<button class="btn" id="selectTool" type="button"><span class="fa fa-mouse-pointer"></span></button>
+				<!--<button id="deleteAction" class="btn" type="button">
+				<span class="fa fa-trash-o"></span>
+			</button>-->
+			</div>
 
-					<div class="btn-group dropup">
-						<button id="lineWeightTool" class="btn dropdown-toggle" data-toggle="dropdown" type="button" style="height: 33px; padding: 13px 9px;">
-								<div style="background-color: #000; height: 2px; width: 15px;"></div>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a onclick="selectLineWeight(1)"><div style="background-color: #000; height: 1px; width: 80px;display: inline-block;"></div> 1px</a></li>
-							<li><a onclick="selectLineWeight(2)"><div style="background-color: #000; height: 2px; width: 80px;display: inline-block;"></div> 2px</a></li>
-							<li><a onclick="selectLineWeight(4)"><div style="background-color: #000; height: 4px; width: 80px;display: inline-block;"></div> 4px</a></li>
-							<li><a onclick="selectLineWeight(8)"><div style="background-color: #000; height: 8px; width: 80px;display: inline-block;"></div> 8px</a></li>
-						</ul>
-					</div>
+			<div class="btn-group">
+				<button class="btn" id="textTool" type="button"><span class="fa fa-font"></span></button>
+				<button class="btn" id="penTool" type="button"><span class="fa fa-pencil"></span></button>
+				<button class="btn" id="lineTool" type="button"><span class="fa fa-pencil"></span></button>
+				<button class="btn" id="ellipseTool" type="button"><span class="fa fa-circle-thin"></span></button>
+				<button class="btn" id="rectTool" type="button"><span class="fa fa-square-o"></span></button>
+				<button class="btn" id="eraserTool" type="button"><span class="fa fa-eraser"></span></button>
+			</div>
 
-					<div class="btn-group">
-						<button class="btn color-btn" id="colorPicker" type="button"><span class="fa" style=" background-color: #000;"></span></button>
-					</div>
+			<div class="btn-group dropup">
+				<button id="lineWeightTool" class="btn dropdown-toggle" data-toggle="dropdown" type="button" style="height: 33px; padding: 13px 9px;">
+						<div style="background-color: #000; height: 2px; width: 15px;"></div>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a onclick="selectLineWeight(1)"><div style="background-color: #000; height: 1px; width: 80px;display: inline-block;"></div> 1px</a></li>
+					<li><a onclick="selectLineWeight(2)"><div style="background-color: #000; height: 2px; width: 80px;display: inline-block;"></div> 2px</a></li>
+					<li><a onclick="selectLineWeight(4)"><div style="background-color: #000; height: 4px; width: 80px;display: inline-block;"></div> 4px</a></li>
+					<li><a onclick="selectLineWeight(8)"><div style="background-color: #000; height: 8px; width: 80px;display: inline-block;"></div> 8px</a></li>
+				</ul>
+			</div>
 
-					<div class="btn-group">
-						<button class="btn color-btn" id="fillPicker" type="button"><span class="fa" style=" background: url(./images/no-color.png) -1px -1px no-repeat no-repeat;"></span></button>
-					</div>					
+			<div class="btn-group">
+				<button class="btn color-btn" id="colorPicker" type="button"><span class="fa" style=" background-color: #000;"></span></button>
+			</div>
 
-					<div class="btn-group">
-                        <button class="btn color-btn" id="black" type="button"><span class="fa" style="background-color: #000;"></span></button>
-                        <button class="btn color-btn" id="white" type="button"><span class="fa" style="background-color: #fff;"></span></button>
-						<button class="btn color-btn" id="red" type="button"><span class="fa" style="background-color: #f00;"></span></button>
-                        <button class="btn color-btn" id="blue" type="button"><span class="fa" style="background-color: #00f;"></span></button>
-                        <button class="btn color-btn" id="green" type="button"><span class="fa" style="background-color: #0f0;"></span></button>
-                        <button class="btn color-btn" id="yellow" type="button"><span class="fa" style="background-color: #ff0;"></span></button>
-					</div>
+			<div class="btn-group">
+				<button class="btn color-btn" id="fillPicker" type="button"><span class="fa" style=" background: url(./images/no-color.png) -1px -1px no-repeat no-repeat;"></span></button>
+			</div>					
 
-					<div class="btn-group">
-						<button class="btn" id="imgAction" type="button"><span class="fa fa-picture-o"></span></button>
-					</div>
-				</div>
-			</td>
-		</tr>
-	</table>
+			<div class="btn-group">
+				<button class="btn color-btn" id="black" type="button"><span class="fa" style="background-color: #000;"></span></button>
+				<button class="btn color-btn" id="white" type="button"><span class="fa" style="background-color: #fff;"></span></button>
+				<button class="btn color-btn" id="red" type="button"><span class="fa" style="background-color: #f00;"></span></button>
+				<button class="btn color-btn" id="blue" type="button"><span class="fa" style="background-color: #00f;"></span></button>
+				<button class="btn color-btn" id="green" type="button"><span class="fa" style="background-color: #0f0;"></span></button>
+				<button class="btn color-btn" id="yellow" type="button"><span class="fa" style="background-color: #ff0;"></span></button>
+			</div>
+
+			<div class="btn-group">
+				<button class="btn" id="imgAction" type="button"><span class="fa fa-picture-o"></span></button>
+			</div>
+		</div>
+	</div>
 
 	<div style="text-align: center;">
 		<span class="alert alert-danger" id="errormessage" style="display: none"></span>
