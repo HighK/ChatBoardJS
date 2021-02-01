@@ -290,7 +290,7 @@ Board.prototype.saveImage = function(filename, contentType, data) {
 
 	fs.writeFile(imagefile, data, 'binary', function(err) {
 		if(err) {
-			if(err.errno == -4058){
+			if(err.errno == -4058 || err.errno == -2){
 				ensurePathExists(path, function() {
 					fs.writeFile(imagefile, data, 'binary',function(err) {
 						if(err) {
@@ -385,8 +385,7 @@ Board.prototype.save = function() {
 
 	fs.writeFile(datafile, boardJson, 'utf8', function(err) {
 		if(err) {
-			console.log("ERROR: ", err);
-			if(err.errno == -4058){
+			if(err.errno == -4058 || err.errno == -2){
 				ensurePathExists(path, function(){
 					fs.writeFile(datafile, boardJson, 'utf8', function(err) {
 						if(err) {
