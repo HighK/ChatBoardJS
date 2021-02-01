@@ -285,7 +285,7 @@ Board.prototype.userExists = function(data) {
 Board.prototype.saveImage = function(filename, contentType, data) {
 	var ext = '.' + mimetypes[contentType];
 
-	var path = 'boards/' + this.id + '/images';
+	var path = __dirname + 'boards/' + this.id + '/images';
 	var imagefile = path + '/' + filename + ext;
 
 	fs.writeFile(imagefile, data, 'binary', function(err) {
@@ -308,7 +308,7 @@ Board.prototype.saveImage = function(filename, contentType, data) {
 Board.prototype.deleteImage = function(filename, contentType) {
 	var ext = '.' + mimetypes[contentType];
 
-	var path = 'boards/' + this.id + '/images';
+	var path = __dirname + 'boards/' + this.id + '/images';
 	var imagefile = path + '/' + filename + ext;
 
 	fs.unlink(imagefile, function(err) {
@@ -380,7 +380,7 @@ Board.prototype.save = function() {
 
 	var boardJson = JSON.stringify(board);
 
-	var path = 'boards/' + this.id;
+	var path = __dirname + 'boards/' + this.id;
 	var datafile = path + '/data.json';
 
 	fs.writeFile(datafile, boardJson, 'utf8', function(err) {
