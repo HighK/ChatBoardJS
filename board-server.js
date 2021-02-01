@@ -157,7 +157,7 @@ var commandHandlers = {
 	},
 	'remove' : function(user, data) {
 
-		if(!this.objects[data.id].type) return;
+		if(!this.objects[data.id]) return;
 		if(this.objects[data.id].type == 'image') {
 			var matchid = this.objects[data.id].href.match(/\/images\/\?board=[A-Za-z0-9]+&img=([A-Za-z0-9]+)/);
 			if(matchid && matchid.index >= 0) {
