@@ -173,7 +173,7 @@ io.of("/player").on("connection", (socket) => {
 	});
 	
 	socket.on('join', data => {   /** {roomId, userId, userName, isHost, thumbnail} */
-		if(!(data.roomId && data.userId)) {
+		if(!(data.roomId && data.userId && data.feedId)) {
 			socket.emit("error", {code: 1, msg: "data type check"});
 			return;
 		}
@@ -194,7 +194,7 @@ io.of("/player").on("connection", (socket) => {
 
 		socket.join(data.roomId);
 		
-		var newData =  {userId: data.userId, userName: data.userName, isHost: data.isHost, thumbnail: data.thumbnail}
+		var newData =  {userId: data.userId, userName: data.userName, isHost: data.isHost, thumbnail: data.thumbnail, feedId: data.feedId}
 
 		room.user.users.push(newData);
 		
@@ -215,8 +215,8 @@ io.of("/player").on("connection", (socket) => {
 
 		var dataSet = new Set(room.user[data.type]);
 
-		if (data.status) dataSet.add(userId);
-		else dataSet.delete(userId);
+		if (data.status) dataSet.add(data.userId);
+		else dataSet.delete(data.userId);
 
 		room.user[data.type] = Array.from(dataSet);
 
@@ -239,8 +239,8 @@ io.of("/player").on("connection", (socket) => {
 
 		var dataSet = new Set(room.stream[data.type]);
 
-		if (data.status) dataSet.add(userId);
-		else dataSet.delete(userId);
+		if (data.status) dataSet.add(data.streamId);
+		else dataSet.delete(data.streamId);
 
 		room.stream[data.type] = Array.from(dataSet);
 
