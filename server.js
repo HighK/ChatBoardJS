@@ -1,12 +1,30 @@
+require('dotenv').config();
+
+var https = require("https");
 var express = require("express");
-var ms = require("ms");
 var app = express();
+var ms = require("ms");
 var argv = require("optimist").argv;
 var BoardManager = require("./board-manager.js");
 var fs = require("fs");
 var Entities = require('html-entities').AllHtmlEntities;
 var entities = new Entities();
-var server = app.listen(argv.port || 9000);
+
+var port = argv.port || 9000;
+var server = null;
+
+if (process.env.NODE_ENV === 'production') {
+	var options = {
+		key: fs.readFileSync(process.env.SSL_KEY),
+		cert: fs.readFileSync(process.env.SSL_CERT),
+		ca: fs.readFileSync(process.env.SSL_CA)
+	}
+
+	server = https.createServer(options, app).listen(port)
+}
+else {
+	server = app.listen(port);
+}
 
 var __webroot = __dirname + '/web';
 
