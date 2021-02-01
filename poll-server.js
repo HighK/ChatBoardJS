@@ -23,7 +23,7 @@ function Poll(pollname, creator, choice_values, users) {
 	
 	moderators[creator.id] = new Moderator(creator.id, 9999); // It's over 9000!
 	
-	for(var i = 0; i < choice_values.length, i++) {
+	for(var i = 0; i < choice_values.length; i++) {
 		addChoice(creator.id, choice_values[i]);
 	}
 	

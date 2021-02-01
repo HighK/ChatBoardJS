@@ -133,3 +133,182 @@ io.on('connection', function (socket) {
 	registerCreate(socket);
 	registerGetBoardInfo(socket);
 });
+
+
+
+
+var Rooms = new Map();
+
+io.of("/player").on("connection", (socket) => {
+	socket.on('create', data => { /** {roomId, userId, streams[]} */
+		if(!(data.roomId && data.userId)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+			
+		var init_room = {
+			roomId,
+			hostId: userId,
+			mainVideo: {
+				type: "stream", // stream | user | whiteboard
+				id: 0,
+			},
+			stream: {
+				streams: data.streams || [],
+				activeVideo: [],
+				activeAudio: []
+			},
+			user: {
+				users: [],
+				publishers: [],
+				activeVideo: [],
+				activeAudio: []
+			}
+		};
+
+		Rooms.set(data.roomId, init_room);
+		socket.join(data.roomId);
+
+		socket.emit("create", {code: 200, msg: "success", data: init_room});
+	});
+	
+	socket.on('join', data => {   /** {roomId, userId, userName, isHost, thumbnail} */
+		if(!(data.roomId && data.userId)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+
+		var room = Rooms.get(roomId);
+		if(!room) {
+			socket.emit("error", {code: 3, msg: "not fonud room"});
+		}
+
+		var size = room.user.users.length;
+
+		for(let i=0; i<size; i++) {
+			if(room.user.users[i].userId === data.userId) {
+				socket.emit("error", {code: 2, msg: "Already Room User"});
+				return;
+			}
+		}
+
+		socket.join(data.roomId);
+		
+		var newData =  {userId: data.userId, userName: data.userName, isHost: data.isHost, thumbnail: data.thumbnail}
+
+		room.user.users.push(newData);
+		
+		Rooms.set(data.roomId, room);
+		io.to(data.roomId).emit('join', {data: newData, room});
+	});
+
+	socket.on('controlUser', data => {   /** roomId, userId, userName, isHost, thumbnail */
+		if(!(data.roomId && data.remoteId && data.userId && data.status && data.isHost && data.type)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+		
+		var room = Rooms.get(roomId);
+		if(!room) {
+			socket.emit("error", {code: 3, msg: "not fonud room"});
+		}
+
+		var dataSet = new Set(room.user[data.type]);
+
+		if (data.status) dataSet.add(userId);
+		else dataSet.delete(userId);
+
+		room.user[data.type] = Array.from(dataSet);
+
+		var newData = {remoteId: data.remoteId, status: data.status, type: data.type};
+		
+		Rooms.set(data.roomId, room);
+		io.to(data.roomId).emit('controlUser', {data: newData, room});
+	});
+
+	socket.on('controlStream', data => {   /**  */
+		if(!(data.roomId && data.streamId && data.userId && data.status && data.isHost && data.type)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+		
+		var room = Rooms.get(roomId);
+		if(!room) {
+			socket.emit("error", {code: 3, msg: "not fonud room"});
+		}
+
+		var dataSet = new Set(room.stream[data.type]);
+
+		if (data.status) dataSet.add(userId);
+		else dataSet.delete(userId);
+
+		room.stream[data.type] = Array.from(dataSet);
+
+		var newData = {streamId: data.remoteId, status: data.status, type: data.type};
+		
+		Rooms.set(data.roomId, room);
+		io.to(data.roomId).emit('controlStream', {data: newData, room});
+	});
+
+	socket.on('controlMain', data => {   /**  */
+		if(!(data.roomId && data.userId && data.isHost && data.remoteId && data.type)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+		
+		var room = Rooms.get(roomId);
+		if(!room) {
+			socket.emit("error", {code: 3, msg: "not fonud room"});
+		}
+		
+		room.mainVideo.id = data.remoteId;
+		room.mainVideo.type = data.type;
+
+		var newData = {remoteId: data.rmeoteId, type: data.type};
+
+		Rooms.set(data.roomId, room);
+		io.to(data.roomId).emit('controlMain', {data: newData, room});
+	});
+
+	socket.on('kickUser', data => {   /**  */
+		if(!(data.roomId && data.userId && data.isHost && data.remoteId)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+		
+		var room = Rooms.get(roomId);
+		if(!room) {
+			socket.emit("error", {code: 3, msg: "not fonud room"});
+		}
+
+		var size = room.user.users.length;
+		for(let i=0; i<size; i++) {
+			if(room.user.users[i].userId === data.userId) {
+				
+				room.user.users.splice(i, 1);
+
+				var newData = {remoteId: data.rmeoteId};
+				Rooms.set(data.roomId, room);
+
+				io.to(data.roomId).emit('kickUser', {data: newData, room});
+				return;
+			}
+		}
+		socket.emit("error", {code: 4, msg: "not fonud user"});
+	});
+
+	socket.on('remove', data => {
+		if(!(data.roomId && data.userId && data.isHost)) {
+			socket.emit("error", {code: 1, msg: "data type check"});
+			return;
+		}
+
+		Rooms.delete(data.roomId);
+		socket.emit('remove', data)
+	});
+
+	socket.on('disconnect', () => {
+
+	});
+});
+
