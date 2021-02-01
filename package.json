@@ -4,12 +4,12 @@
   "description": "Chat and interactive whiteboard",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.13.3",
+    "express": "^4.17.1",
     "express-favicon": "^1.0.1",
     "html-entities": "^1.1.3",
     "ms": "^0.7.1",
     "optimist": "^0.6.1",
-    "socket.io": "^1.3.6"
+    "socket.io": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {

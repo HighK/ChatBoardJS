@@ -14,7 +14,7 @@ var Helpers;
     }
 })(function() {
 	function atob(str) {
-		return new Buffer(str, 'base64');
+		return Buffer.from(str, 'base64');
 	}
 
 	function makeid(length)

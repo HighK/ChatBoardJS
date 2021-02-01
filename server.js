@@ -10,7 +10,7 @@ var server = app.listen(argv.port || 9000);
 
 var __webroot = __dirname + '/web';
 
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
 
 app.get("/", function(req, res) {
 	res.sendFile(__webroot + '/index.html');
@@ -116,4 +116,3 @@ io.on('connection', function (socket) {
 	registerCreate(socket);
 	registerGetBoardInfo(socket);
 });
-

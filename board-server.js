@@ -156,7 +156,7 @@ var commandHandlers = {
 		this.onupdate();
 	},
 	'remove' : function(user, data) {
-		if(this.objects[data.id].type == 'image') {
+		if(this.objects[data.id]?.type == 'image') {
 			var matchid = this.objects[data.id].href.match(/\/images\/\?board=[A-Za-z0-9]+&img=([A-Za-z0-9]+)/);
 			if(matchid && matchid.index >= 0) {
 				imgid = matchid[1]; 
@@ -357,7 +357,7 @@ Board.prototype.rejoin = function(socket, sessionId) {
 
 				console.log(socket.id + " rejoins board: " + this.name + " as " + user.name);
 
-				init_connection(socket, user);
+				this.init_connection(socket, user);
 				return;
 			}
 		}
