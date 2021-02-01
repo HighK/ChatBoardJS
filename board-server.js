@@ -285,7 +285,7 @@ Board.prototype.userExists = function(data) {
 Board.prototype.saveImage = function(filename, contentType, data) {
 	var ext = '.' + mimetypes[contentType];
 
-	var path = __dirname + 'boards/' + this.id + '/images';
+	var path = __dirname + '/boards/' + this.id + '/images';
 	var imagefile = path + '/' + filename + ext;
 
 	fs.writeFile(imagefile, data, 'binary', function(err) {
@@ -308,7 +308,7 @@ Board.prototype.saveImage = function(filename, contentType, data) {
 Board.prototype.deleteImage = function(filename, contentType) {
 	var ext = '.' + mimetypes[contentType];
 
-	var path = __dirname + 'boards/' + this.id + '/images';
+	var path = __dirname + '/boards/' + this.id + '/images';
 	var imagefile = path + '/' + filename + ext;
 
 	fs.unlink(imagefile, function(err) {
@@ -380,7 +380,7 @@ Board.prototype.save = function() {
 
 	var boardJson = JSON.stringify(board);
 
-	var path = __dirname + 'boards/' + this.id;
+	var path = __dirname + '/boards/' + this.id;
 	var datafile = path + '/data.json';
 
 	fs.writeFile(datafile, boardJson, 'utf8', function(err) {
@@ -418,7 +418,7 @@ Board.prototype.getImage = function(imgid, callback) {
 	if(image) {
 		var ext = '.' + mimetypes[image.contentType];
 
-		fs.readFile('boards/' + this.id + '/images/' + imgid + ext, function(err, data) {
+		fs.readFile(__dirname + '/boards/' + this.id + '/images/' + imgid + ext, function(err, data) {
 			if(err){
 				return callback(null);
 			}
@@ -435,7 +435,7 @@ Board.prototype.getImage = function(imgid, callback) {
 
 Board.load = function (id, callback) {
 	try {
-		var data = fs.readFileSync('boards/' + id + '/data.json', 'utf8');
+		var data = fs.readFileSync(__dirname + '/boards/' + id + '/data.json', 'utf8');
 		var board = new Board();
 		board.init(data);
 		return board;
