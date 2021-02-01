@@ -288,11 +288,11 @@ Board.prototype.saveImage = function(filename, contentType, data) {
 	var path = __dirname + '/boards/' + this.id + '/images';
 	var imagefile = path + '/' + filename + ext;
 
-	fs.writeFile(imagefile, data, 'binary', function(err) {
+	fs.writeFileSync(imagefile, data, 'binary', function(err) {
 		if(err) {
 			if(err.errno == -4058){
 				ensurePathExists(path, function() {
-					fs.writeFile(imagefile, data, 'binary',function(err) {
+					fs.writeFileSync(imagefile, data, 'binary',function(err) {
 						if(err) {
 							return console.log(err)
 						}
@@ -383,11 +383,11 @@ Board.prototype.save = function() {
 	var path = __dirname + '/boards/' + this.id;
 	var datafile = path + '/data.json';
 
-	fs.writeFile(datafile, boardJson, 'utf8', function(err) {
+	fs.writeFileSync(datafile, boardJson, 'utf8', function(err) {
 		if(err) {
 			if(err.errno == -4058){
 				ensurePathExists(path, function(){
-					fs.writeFile(datafile, boardJson, 'utf8', function(err) {
+					fs.writeFileSync(datafile, boardJson, 'utf8', function(err) {
 						if(err) {
 							return console.log(err)
 						}
