@@ -152,8 +152,8 @@ io.of("/player").on("connection", (socket) => {
 		}
 			
 		var init_room = {
-			roomId,
-			hostId: userId,
+			roomId: data.roomId,
+			hostId: data.userId,
 			mainVideo: {
 				type: "stream", // stream | user | whiteboard
 				id: 0,
