@@ -146,7 +146,8 @@ var Rooms = new Map();
 
 io.of("/player").on("connection", (socket) => {
 	socket.on('create', data => { /** {roomId, userId, streams[]} */
-		if(!(data.roomId && data.userId)) {
+		console.log(data);
+		if(!(data.roomId && data.userId && data.isHost)) {
 			socket.emit("error", {code: 1, msg: "data type check"});
 			return;
 		}
