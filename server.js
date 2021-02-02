@@ -27,7 +27,12 @@ else {
 
 var __webroot = __dirname + '/web';
 
-var io = require('socket.io')(server);
+var io = require('socket.io')(server, {
+	cors: {
+	  origin: "*",
+	  methods: ["GET", "POST"]
+	}
+});
 
 app.get("/", function(req, res) {
 	res.sendFile(__webroot + '/index.html');
@@ -154,7 +159,7 @@ io.of("/player").on("connection", (socket) => {
 				id: 0,
 			},
 			stream: {
-				streams: data.streams || [],
+				streams: data.streams || [], // [{stream_id, stream_name}]
 				activeVideo: [],
 				activeAudio: []
 			},
