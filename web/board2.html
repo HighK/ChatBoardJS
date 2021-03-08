@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+	<title>ChatBoard</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://lipis.github.io/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="css/spectrum.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
+	<link href="css/site.css" rel="stylesheet" type="text/css">
+	<link href="css/emoticons.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-3.0.1.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="scripts/es6-polyfill.js"></script>
+
+	<script src="common/helpers.js"></script>
+	<script src="scripts/md5.js"></script>
+	<script src="scripts/geometry.js"></script>
+	<script src="scripts/chat.js"></script>
+
+	<script src="scripts/text.js"></script>
+	<script src="scripts/ResizeHandle.js"></script>
+	<script src="scripts/ImageObject.js"></script>
+	<script src="scripts/PathObject.js"></script>
+	<script src="scripts/LineObject.js"></script>
+	<script src="scripts/EllipseObject.js"></script>
+	<script src="scripts/RectangleObject.js"></script>
+	<script src="scripts/TextObject.js"></script>
+	<script src="scripts/TextEditor.js"></script>
+	<script src="scripts/TextCursor.js"></script>
+	<script src="scripts/ObjectManager.js"></script>
+	<script src="scripts/board-client.js"></script>
+
+	<script src="scripts/js.cookie.js"></script>
+	<script src="scripts/jquery.awesome-cursor.js"></script>
+	<script src="scripts/spectrum.js"></script>
+</head>
+
+<body class="noselect">
+	<textarea id="hiddentext" style="display:none">
+</textarea>
+
+	<div id="content" style="display: none; margin-top: -10px">
+
+		<div id="whiteboard" tabindex="1" style="overflow: scroll"></div>
+
+
+	<div style="text-align: center;">
+		<span class="alert alert-danger" id="errormessage" style="display: none"></span>
+	</div>
+	
+	<script src="scripts/main2.js"></script>
+</body>
+
+<script>
+
+</script>
+</html>

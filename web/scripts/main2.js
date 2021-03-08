@@ -308,7 +308,7 @@ $("#uploadImageBtn").click(function() {
 
 function resize() {
 	var win = $(window);
-	board.setSize(win.width() - 2, win.height() - 50);
+	board.setSize(win.width() - 2, win.height());
 }
 
 function selectLineWeight(weight) {
